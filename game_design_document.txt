@@ -1,0 +1,74 @@
+# Ecosphere Cascade: Minimal Steam Release Requirements
+
+## Genre
+Casual Puzzle Game with Ecology Theme
+
+## Core Gameplay
+- Water drop shooting mechanics
+- Seed pegs that grow into trees when hit
+- Obstacles (rocks and 1-2 additional types)
+- 20 levels for initial release
+
+## Essential Features
+
+1. Main Menu
+   - Play, Instructions, Settings, Quit options
+   - Simple navigation between scenes
+
+2. Instructions
+   - Brief explanation of gameplay mechanics and controls
+   - Accessible from main menu and during gameplay
+
+3. Settings
+   - Sound effects and music toggles
+   - Volume controls
+
+4. Difficulty Levels
+   - Easy, Medium, Hard
+   - Adjusts number of obstacles, seed pegs, and water drop speed
+
+5. Scoring System
+   - Points for each grown tree
+   - Display current score on screen
+   - Basic high score tracking
+
+6. Game Over Screen
+   - Final score display
+   - Restart and Main Menu options
+
+7. Sound and Visual Effects
+   - Basic sound effects for key actions (water drops, seed growth, tree appearance)
+   - Simple animations for water drops, seed growth, trees
+
+8. Pause Menu
+   - Resume, Restart, Main Menu options
+
+9. Power-ups (2-3 types)
+   - e.g., "Sunlight Boost" (faster growth), "Rainwater Splash" (clear obstacles)
+
+10. Special Seed Pegs (1-2 types)
+	- e.g., "Golden Seed" (bonus points), "Seed Bomb" (grows adjacent seeds)
+
+11. Environmental Themes
+	- 2-3 distinct visual themes (e.g., Forest, Desert, Wetland)
+	- Themed obstacles and backgrounds
+
+12. Basic Achievements
+	- 5-7 simple achievements (e.g., grow first tree, clear all levels, reach score milestone)
+
+## Art Direction
+- Cohesive, casual art style
+- Essential assets: menus, sprites (water drops, seeds, trees, obstacles), backgrounds
+- Steam marketplace page assets (logo, header image, screenshots)
+
+## Pricing
+- $4.99 USD
+
+## Development Steps
+1. Finalize game design document with detailed feature descriptions
+2. Create asset list for all required art
+3. Hire freelance artist for cohesive art style and Steam assets
+4. Develop core gameplay mechanics and level design
+5. Implement UI, sound, and visual effects
+6. Playtest and iterate on level designs and difficulty balance
+7. Prepare Steam store page and plan launch strategy
