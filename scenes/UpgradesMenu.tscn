@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmulf5sxqcsn7"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_7auas"]
+[ext_resource type="Texture2D" uid="uid://bmeebh7iq2at1" path="res://textures/upgrades_menu_3.png" id="2_7k23h"]
+[ext_resource type="Texture2D" uid="uid://da0oh6mflo8hs" path="res://textures/skill_button_highlight.png" id="3_oaxo1"]
+[ext_resource type="Texture2D" uid="uid://d0q7w4a7aa1qq" path="res://textures/skill_button_active.png" id="4_m7hyl"]
+
+[node name="UpgradesMenu (Control)" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_7auas")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 866.0
+offset_top = 780.0
+offset_right = 1066.0
+offset_bottom = 920.0
+
+[node name="RefundSkillsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Refund Skill Points"
+
+[node name="ReturnToMainMenuButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Return to Main Menu"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(960, 540)
+texture = ExtResource("2_7k23h")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 894.0
+offset_top = 741.0
+offset_right = 1063.0
+offset_bottom = 770.0
+text = "Upgrades Menu"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 318.0
+offset_top = 163.0
+offset_right = 826.0
+offset_bottom = 717.0
+scale = Vector2(1.0514, 1.06621)
+action_mode = 0
+icon = ExtResource("3_oaxo1")
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 2
+
+[node name="Button2" type="Button" parent="."]
+offset_left = -56.0
+offset_top = 78.0
+offset_right = 452.0
+offset_bottom = 632.0
+scale = Vector2(1.20673, 1.07727)
+action_mode = 0
+icon = ExtResource("4_m7hyl")
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 2

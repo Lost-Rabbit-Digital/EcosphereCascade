@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://gxku75n3dges"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://2vaorfyu44sv" path="res://bouncy.phymat" id="1_vih3l"]
+[ext_resource type="Texture2D" uid="uid://ou42qbpyi58c" path="res://water_drop (2).png" id="2_kk62g"]
+[ext_resource type="Script" path="res://WaterDrop.gd" id="2_x0aci"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_57mry"]
+radius = 12.3528
+height = 31.6127
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RigidBody2D - WaterDrop" type="RigidBody2D" parent="."]
+physics_material_override = ExtResource("1_vih3l")
+gravity_scale = 0.6
+script = ExtResource("2_x0aci")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D - WaterDrop"]
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("2_kk62g")
+
+[node name="Area2D" type="Area2D" parent="RigidBody2D - WaterDrop"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D - WaterDrop/Area2D"]
+shape = SubResource("CapsuleShape2D_57mry")
+debug_color = Color(0.333333, 0.541176, 0.827451, 1)

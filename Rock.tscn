@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr1jdr7oy00pu"]
+
+[ext_resource type="Texture2D" uid="uid://demj3ga3vpq05" path="res://textures/rock_monster.png" id="1_ai0eo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m5y12"]
+radius = 148.571
+height = 365.714
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D - Rock" type="StaticBody2D" parent="."]
+scale = Vector2(0.175, 0.175)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D - Rock"]
+position = Vector2(5.71429, 5.71429)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_m5y12")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D - Rock"]
+texture = ExtResource("1_ai0eo")

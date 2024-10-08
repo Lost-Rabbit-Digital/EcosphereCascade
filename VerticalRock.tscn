@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8x0rk21y7ohw"]
+
+[ext_resource type="Texture2D" uid="uid://w1c4ku1l8qw8" path="res://audio/vertical_rock_monster.png" id="1_sgsgu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6g5xk"]
+radius = 148.571
+height = 502.857
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D - Vertical Rock Monster" type="StaticBody2D" parent="."]
+scale = Vector2(0.175, 0.175)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D - Vertical Rock Monster"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_sgsgu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D - Vertical Rock Monster"]
+shape = SubResource("CapsuleShape2D_6g5xk")

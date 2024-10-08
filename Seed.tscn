@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bw3mpu5qg36hc"]
+
+[ext_resource type="Script" path="res://Seed.gd" id="1_oo47m"]
+[ext_resource type="Texture2D" uid="uid://cer6g7gywwbys" path="res://textures/tree_monster.png" id="2_fhb6v"]
+[ext_resource type="Texture2D" uid="uid://conni28uxkx45" path="res://textures/seed_monster.png" id="3_cxikh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wsbo"]
+radius = 205.714
+
+[node name="StaticBody2D - Seed" type="StaticBody2D"]
+scale = Vector2(0.175, 0.175)
+script = ExtResource("1_oo47m")
+tree_sprite = ExtResource("2_fhb6v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4.76837e-07, -5.71429)
+shape = SubResource("CircleShape2D_1wsbo")
+debug_color = Color(0.386902, 0.498942, 0.924432, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_cxikh")
+
+[node name="Node2D" type="Node2D" parent="."]
