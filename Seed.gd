@@ -2,8 +2,8 @@ extends StaticBody2D
 
 signal seed_grown
 
-@export var max_growth_stage := 3
-@export var scale_factor := 1.1
+@export var max_growth_stage := 2
+@export var scale_factor := 1.2
 @export var tree_sprite: Texture
 
 var growth_stage := 0
@@ -18,10 +18,10 @@ func _ready():
 	add_child(transform_sound)
 	
 	# Load the sound file
-	var sound = load("res://audio/transform_braam.wav")
+	var sound = load("res://audio/Impact Low Reverb 001.wav")
 	if sound:
 		transform_sound.stream = sound
-		transform_sound.volume_db = -7
+		transform_sound.volume_db = -5
 	else:
 		print("Failed to load transform_braam.wav")
 

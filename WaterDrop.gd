@@ -6,7 +6,7 @@ var lifetime_timer: Timer
 func _ready():
 	print("WaterDrop: Ready")
 	$Area2D.body_entered.connect(_on_body_entered)
-	
+	add_to_group("water_drops")
 	# Initialize the AudioStreamPlayer
 	water_impact_sound = AudioStreamPlayer.new()
 	add_child(water_impact_sound)
@@ -22,7 +22,7 @@ func _ready():
 	# Create and start the lifetime timer
 	lifetime_timer = Timer.new()
 	add_child(lifetime_timer)
-	lifetime_timer.wait_time = 10.0  # 10 seconds
+	lifetime_timer.wait_time = 15.0  # 15 seconds
 	lifetime_timer.one_shot = true  # The timer will stop after one timeout
 	lifetime_timer.timeout.connect(_on_lifetime_timeout)
 	lifetime_timer.start()
@@ -37,7 +37,11 @@ func _on_body_entered(body):
 	# Existing logic for seed growth
 	if body.is_in_group("seeds"):
 		body.grow()
-
+			
+	# Existing logic for seed growth
+	if body.is_in_group("rocks"):
+		body.erode()
+		
 func _on_lifetime_timeout():
 	# This function is called when the lifetime timer runs out
 	queue_free()  # Remove the water drop from the scene

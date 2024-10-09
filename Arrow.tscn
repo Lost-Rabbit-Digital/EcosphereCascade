@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dl5pjx8w7vm8v"]
 
-[ext_resource type="Texture2D" uid="uid://du3lco31qqwy6" path="res://crossbow_launcher.png" id="1_4qrrs"]
+[ext_resource type="Texture2D" uid="uid://du3lco31qqwy6" path="res://gfx/crossbow.png" id="1_4qrrs"]
 [ext_resource type="Script" path="res://arrow.gd" id="1_o3m5l"]
 
 [node name="Node2D" type="Node2D"]

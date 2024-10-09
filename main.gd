@@ -6,6 +6,9 @@ var vertical_rocks = []
 var background_music: AudioStreamPlayer2D
 var win_sound: AudioStreamPlayer2D
 var combo_sound: AudioStreamPlayer2D
+var crossbow: Sprite2D
+var trajectory_line: Line2D
+var water_drop_scene = preload("res://WaterDrop.tscn")
 
 var total_seed_pegs = seed_pegs.size()
 var background_sprite = Sprite2D.new()
@@ -24,16 +27,30 @@ var combo_timer = 0
 var combo_timeout = 3.0  # Time window for combo (in seconds)
 var score = 0
 
+# Crossbow and shooting variables
+var can_shoot = true
+var shoot_cooldown := Timer.new()
+var shoot_timer = 0.0
+var gravity = Vector2(0, 980)  # Adjust this value to match your game's gravity
+var shots_remaining = 10
+
 @onready var combo_label = $ComboLabel
 @onready var score_label = $ScoreLabel
+@onready var shots_label = $ShotsLabel
+
 
 func _ready():
 	setup_background_layer()
 	randomize()
 	setup_game()
-	create_arrow()
+	create_crossbow()
+	create_trajectory_line()
 	setup_audio()
 	setup_ui()
+	setup_rocks()
+	shoot_cooldown.timeout.connect(reset_shoot_cooldown)
+	shoot_cooldown.one_shot = true
+	add_child(shoot_cooldown)
 	
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 
@@ -95,16 +112,22 @@ func setup_audio():
 
 func setup_ui():
 	combo_label = Label.new()
-	combo_label.name = "ComboLabel"
-	combo_label.position = Vector2(20, 60)  # Adjust position as needed
+	combo_label.position = Vector2(20, 60)
 	add_child(combo_label)
 	
 	score_label = Label.new()
-	score_label.name = "ScoreLabel"
-	score_label.position = Vector2(20, 20)  # Adjust position as needed
+	score_label.position = Vector2(20, 20)
 	add_child(score_label)
 	
+	shots_label = Label.new()
+	shots_label.position = Vector2(20, 100)
+	add_child(shots_label)
+	
 	update_score_display()
+	update_shots_display()
+
+func update_shots_display():
+	shots_label.text = "Shots: " + str(shots_remaining)
 
 func is_cell_empty(x, y):
 	return not occupied_cells[x][y]
@@ -112,8 +135,15 @@ func is_cell_empty(x, y):
 func occupy_cell(x, y):
 	occupied_cells[x][y] = true
 	
+func setup_rocks():
+	for rock in rocks:
+		rock.connect("eroded", Callable(self, "_on_rock_eroded"))
+		
+	for vertical_rock in vertical_rocks:
+		vertical_rock.connect("eroded", Callable(self, "_on_rock_eroded"))
+
 func create_rocks():
-	var num_rocks = 12
+	var num_rocks = 25
 	var rock_size = 60
 	var top_margin = int(grid_height * 0.1)
 
@@ -132,7 +162,7 @@ func create_rocks():
 			attempts += 1
 
 func create_vertical_rocks():
-	var num_vertical_rocks = 8
+	var num_vertical_rocks = 25
 	var rock_size = 60
 	var top_margin = int(grid_height * 0.1)
 
@@ -151,8 +181,15 @@ func create_vertical_rocks():
 				break
 			attempts += 1
 
+func _on_rock_eroded(rock):
+	if rock in rocks:
+		rocks.erase(rock)
+	elif rock in vertical_rocks:
+		vertical_rocks.erase(rock)
+	rock.queue_free()
+
 func create_seed_pegs():
-	var num_seeds = 20
+	var num_seeds = 10
 	var seed_peg_size = 80
 	var top_margin = int(grid_height * 0.1)
 
@@ -231,9 +268,9 @@ func win_game():
 	else:
 		print("Win sound not available")
 	
-	var win_banner = preload("res://WinBanner.tscn").instantiate()
-	win_banner.position = Vector2(1920/2, 1080/2)
-	add_child(win_banner)
+	#var win_banner = preload("res://WinBanner.tscn").instantiate()
+	#win_banner.position = Vector2(1920/2, 1080/2)
+	#add_child(win_banner)
 
 func create_arrow():
 	var arrow = preload("res://Arrow.tscn").instantiate()
@@ -250,6 +287,94 @@ func _process(delta):
 		combo_timer += delta
 		if combo_timer >= combo_timeout:
 			end_combo()
+	
+	# Shooting cooldown
+	if not can_shoot:
+		shoot_timer += delta
+		if shoot_timer >= 1.0:
+			can_shoot = true
+			shoot_timer = 0.0
+	
+	# Update crossbow aim and trajectory
+	update_crossbow_aim()
+	update_trajectory()
+
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and can_shoot and shots_remaining > 0:
+			shoot_water_drop()
+
+func update_crossbow_aim():
+	var mouse_pos = get_global_mouse_position()
+	crossbow.look_at(mouse_pos)
+	crossbow.rotation += PI/2  # Adjust rotation by 90 degreess)
+
+func update_trajectory():
+	var start_pos = crossbow.global_position
+	var direction = (get_global_mouse_position() - start_pos).normalized()
+	var speed = 1500  # Adjust this value to change the initial speed of the water drop
+	
+	var points = PackedVector2Array()
+	var pos = start_pos
+	var velocity = direction * speed
+	var step = 0.1  # Time step for trajectory prediction
+	var max_distance = get_viewport_rect().size.y / 2  # Half the screen height
+	var total_distance = 0
+	
+	while total_distance < max_distance:
+		points.append(pos)
+		velocity += gravity * step
+		var step_distance = (velocity * step).length()
+		pos += velocity * step
+		total_distance += step_distance
+		
+		if points.size() % 2 == 0:  # Add a gap every other point for dotted effect
+			points.append(pos)
+	
+	trajectory_line.points = points
+
+func shoot_water_drop():
+	if can_shoot and shots_remaining > 0:
+		var water_drop = water_drop_scene.instantiate()
+		water_drop.position = crossbow.global_position
+		var direction = (get_global_mouse_position() - crossbow.global_position).normalized()
+		water_drop.linear_velocity = direction * 1200  # Match the speed from update_trajectory
+		add_child(water_drop)
+		can_shoot = false
+		shoot_timer = 0.0  # Reset the timer
+		shots_remaining -= 1
+		update_shots_display()
+		
+		if shots_remaining == 0:
+			check_game_state()
+
+func reset_shoot_cooldown():
+	can_shoot = true
+	shoot_timer = 0.0
+
+func check_game_state():
+	if seed_pegs.is_empty():
+		win_game()
+	elif shots_remaining == 0:
+		game_loss()
+
+func game_loss():
+	var loss_label = Label.new()
+	loss_label.text = "Game Over\nScore: " + str(score) + "\nClick to Restart"
+	loss_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	loss_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	loss_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	add_child(loss_label)
+	
+	var restart_button = Button.new()
+	restart_button.text = "Restart"
+	restart_button.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+	restart_button.pressed.connect(restart_game)
+	add_child(restart_button)
+
+func restart_game():
+	get_tree().reload_current_scene()
 
 # Combo system functions
 func hit_peg(peg_value):
@@ -278,3 +403,18 @@ func end_combo():
 	combo_count = 0
 	combo_timer = 0
 	combo_label.text = ""
+	
+
+func create_crossbow():
+	crossbow = Sprite2D.new()
+	crossbow.texture = load("res://gfx/crossbow.png")  # Make sure to create this image
+	crossbow.position = Vector2(960, 50)  # Adjust position as needed
+	crossbow.scale = Vector2(0.5, 0.5)  # Reduce size by half
+	add_child(crossbow)
+
+func create_trajectory_line():
+	trajectory_line = Line2D.new()
+	trajectory_line.default_color = Color(1, 1, 1, 0.5)  # Semi-transparent white
+	trajectory_line.width = 2
+	trajectory_line.top_level = true
+	add_child(trajectory_line)
