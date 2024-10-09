@@ -54,6 +54,7 @@ icon_alignment = 1
 vertical_icon_alignment = 2
 
 [node name="Button2" type="Button" parent="."]
+layout_mode = 0
 offset_left = -56.0
 offset_top = 78.0
 offset_right = 452.0

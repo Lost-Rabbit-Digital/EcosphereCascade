@@ -5,6 +5,7 @@ var rocks = []
 var vertical_rocks = []
 var background_music: AudioStreamPlayer2D
 var win_sound: AudioStreamPlayer2D
+var combo_sound: AudioStreamPlayer2D
 
 var total_seed_pegs = seed_pegs.size()
 var background_sprite = Sprite2D.new()
@@ -17,12 +18,22 @@ var occupied_cells = []
 var polluted_background = load("res://gfx/industry_bg_8.jpg")
 var natural_background = load("res://gfx/nature_bg_3.png")
 
+# Combo system variables
+var combo_count = 0
+var combo_timer = 0
+var combo_timeout = 3.0  # Time window for combo (in seconds)
+var score = 0
+
+@onready var combo_label = $ComboLabel
+@onready var score_label = $ScoreLabel
+
 func _ready():
 	setup_background_layer()
 	randomize()
 	setup_game()
 	create_arrow()
 	setup_audio()
+	setup_ui()
 	
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 
@@ -72,15 +83,37 @@ func setup_audio():
 		win_sound.stream = sound
 	else:
 		print("Failed to load game_win.wav")
+	
+	# Setup combo sound
+	combo_sound = AudioStreamPlayer2D.new()
+	add_child(combo_sound)
+	var combo_sound_resource = load("res://audio/Impact Tom 001.wav")  # Make sure to create this audio file
+	if combo_sound_resource:
+		combo_sound.stream = combo_sound_resource
+	else:
+		print("Failed to load combo_sound.wav")
 
+func setup_ui():
+	combo_label = Label.new()
+	combo_label.name = "ComboLabel"
+	combo_label.position = Vector2(20, 60)  # Adjust position as needed
+	add_child(combo_label)
+	
+	score_label = Label.new()
+	score_label.name = "ScoreLabel"
+	score_label.position = Vector2(20, 20)  # Adjust position as needed
+	add_child(score_label)
+	
+	update_score_display()
 
 func is_cell_empty(x, y):
 	return not occupied_cells[x][y]
 
 func occupy_cell(x, y):
 	occupied_cells[x][y] = true
+	
 func create_rocks():
-	var num_rocks = 24
+	var num_rocks = 12
 	var rock_size = 60
 	var top_margin = int(grid_height * 0.1)
 
@@ -99,7 +132,7 @@ func create_rocks():
 			attempts += 1
 
 func create_vertical_rocks():
-	var num_vertical_rocks = 16
+	var num_vertical_rocks = 8
 	var rock_size = 60
 	var top_margin = int(grid_height * 0.1)
 
@@ -119,7 +152,7 @@ func create_vertical_rocks():
 			attempts += 1
 
 func create_seed_pegs():
-	var num_seeds = 8
+	var num_seeds = 20
 	var seed_peg_size = 80
 	var top_margin = int(grid_height * 0.1)
 
@@ -150,6 +183,10 @@ func _on_seed_grown(seed_peg):
 	print("Removing seed peg.")
 	grown_trees += 1
 	update_background()
+	
+	# Add combo and scoring logic
+	hit_peg(150)  # Assuming each seed peg is worth 100 points
+	
 	if seed_pegs.is_empty():
 		win_game()
 		
@@ -180,6 +217,7 @@ func _on_viewport_size_changed():
 		var blend_texture_size = blend_sprite.texture.get_size()
 		blend_sprite.scale = Vector2(viewport_size.x / blend_texture_size.x, viewport_size.y / blend_texture_size.y)
 		
+
 func win_game():
 	print("You win!")
 	
@@ -206,3 +244,37 @@ func _process(delta):
 	# Rotate vertical rocks
 	for rock in vertical_rocks:
 		rock.rotation += delta * randf_range(0, 0.5)  # Adjust rotation speed as needed
+	
+	# Combo timer logic
+	if combo_count > 0:
+		combo_timer += delta
+		if combo_timer >= combo_timeout:
+			end_combo()
+
+# Combo system functions
+func hit_peg(peg_value):
+	combo_count += 1
+	combo_timer = 0
+	score += peg_value * combo_count
+	
+	update_combo_display()
+	update_score_display()
+	play_combo_sound()
+
+func update_combo_display():
+	combo_label.text = "Combo: x" + str(combo_count)
+	# You can add visual effects here, like scaling or color change
+
+func update_score_display():
+	score_label.text = "Score: " + str(score)
+
+func play_combo_sound():
+	if combo_sound:
+		# Adjust pitch based on combo count
+		combo_sound.pitch_scale = 1.0 + (combo_count * 0.1)
+		combo_sound.play()
+
+func end_combo():
+	combo_count = 0
+	combo_timer = 0
+	combo_label.text = ""

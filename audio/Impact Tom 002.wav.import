@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b6yqt2xwlamtj"
+path="res://.godot/imported/Impact Tom 002.wav-70098a3df9e5307f693216f8d1a40e91.sample"
+
+[deps]
+
+source_file="res://audio/Impact Tom 002.wav"
+dest_files=["res://.godot/imported/Impact Tom 002.wav-70098a3df9e5307f693216f8d1a40e91.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
