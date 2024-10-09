@@ -1,6 +1,6 @@
 # Ecosphere Cascade - Initial Open Source Release
 
-![image](https://github.com/user-attachments/assets/44b86e1f-94ae-44a7-ac81-fceee5b4511c)
+![ecosphere_cascade_example-1](https://github.com/user-attachments/assets/095150e9-160f-4d97-9433-8e3201007e14)
 
 We're excited to announce the initial open source release of Ecosphere Cascade, an engaging puzzle game where players work to restore a polluted environment!
 
