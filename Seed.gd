@@ -2,7 +2,7 @@ extends StaticBody2D
 
 signal seed_grown
 
-@export var max_growth_stage := 2
+@export var max_growth_stage := 1
 @export var scale_factor := 1.2
 @export var tree_sprite: Texture
 
@@ -45,6 +45,6 @@ func turn_into_tree():
 		print("Transformation sound not available")
 	
 	$Sprite2D.texture = tree_sprite
-	$Sprite2D.scale = Vector2.ONE * 1.75
+	$Sprite2D.scale = Vector2.ONE * 2.2
 	remove_from_group("seeds")
 	emit_signal("seed_grown", self)
