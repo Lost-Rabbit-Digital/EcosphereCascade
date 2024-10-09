@@ -299,12 +299,52 @@ func _process(delta):
 	update_crossbow_aim()
 	update_trajectory()
 
-
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and can_shoot and shots_remaining > 0:
 			shoot_water_drop()
+	elif event is InputEventKey and event.pressed:
+		if event.keycode == KEY_R:
+			reset_game()
 
+func reset_game():
+	# Remove all existing game objects
+	for child in get_children():
+		if child is StaticBody2D or child is RigidBody2D:
+			child.queue_free()
+	
+	# Clear arrays
+	seed_pegs.clear()
+	rocks.clear()
+	vertical_rocks.clear()
+	occupied_cells.clear()
+	
+	# Reset variables
+	grown_trees = 0
+	combo_count = 0
+	combo_timer = 0
+	score = 0
+	shots_remaining = 10
+	
+	# Setup game again
+	setup_game()
+	
+	# Update UI
+	update_combo_display()
+	update_score_display()
+	update_shots_display()
+	
+	# Reset background
+	var blend_sprite = $BackgroundLayer/BlendSprite
+	blend_sprite.modulate.a = 0
+	
+	# Reset crossbow and trajectory line
+	if crossbow:
+		crossbow.rotation = 0
+	if trajectory_line:
+		trajectory_line.points = PackedVector2Array()
+		
+		
 func update_crossbow_aim():
 	var mouse_pos = get_global_mouse_position()
 	crossbow.look_at(mouse_pos)
