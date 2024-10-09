@@ -15,7 +15,7 @@ var background_sprite = Sprite2D.new()
 var grown_trees = 0
 var grid_size = 100
 var grid_width = 19  # 1920 / grid_size
-var grid_height = 10  # 1080 / grid_size
+var grid_height = 10 # 1080 / grid_size
 var occupied_cells = []
 
 var polluted_background = load("res://gfx/industry_bg_8.jpg")
