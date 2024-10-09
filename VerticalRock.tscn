@@ -5,7 +5,7 @@
 [ext_resource type="Shape2D" uid="uid://md41f2ufrbt0" path="res://VerticalRock-Collision.tres" id="2_r7df8"]
 
 [node name="StaticBody2D - Vertical Rock Monster" type="StaticBody2D"]
-scale = Vector2(0.175, 0.175)
+scale = Vector2(0.15, 0.15)
 script = ExtResource("1_iv537")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -20,7 +20,6 @@ shape = ExtResource("2_r7df8")
 [node name="Area2D" type="Area2D" parent="Node2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
-scale = Vector2(0.175, 0.175)
 shape = ExtResource("2_r7df8")
 
 [connection signal="area_entered" from="Node2D/Area2D" to="." method="_on_area_2d_area_entered"]

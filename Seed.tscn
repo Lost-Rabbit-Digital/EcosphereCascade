@@ -8,7 +8,7 @@
 radius = 205.714
 
 [node name="StaticBody2D - Seed" type="StaticBody2D"]
-scale = Vector2(0.175, 0.175)
+scale = Vector2(0.1, 0.1)
 script = ExtResource("1_oo47m")
 tree_sprite = ExtResource("2_fhb6v")
 

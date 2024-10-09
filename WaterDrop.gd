@@ -2,17 +2,21 @@ extends RigidBody2D
 
 var water_impact_sound: AudioStreamPlayer
 var lifetime_timer: Timer
+var collision_count: int = 0
+var max_pitch_scale: float = 2.0  # Maximum pitch scale
+var pitch_increment: float = 0.1  # How much to increase pitch per collision
 
 func _ready():
 	print("WaterDrop: Ready")
 	$Area2D.body_entered.connect(_on_body_entered)
 	add_to_group("water_drops")
+	
 	# Initialize the AudioStreamPlayer
 	water_impact_sound = AudioStreamPlayer.new()
 	add_child(water_impact_sound)
 	
 	# Load the sound file
-	var sound = load("res://audio/water_impact.mp3")
+	var sound = load("res://audio/Impact Tom 002.wav")
 	if sound:
 		water_impact_sound.stream = sound
 		water_impact_sound.volume_db = -14
@@ -28,8 +32,14 @@ func _ready():
 	lifetime_timer.start()
 
 func _on_body_entered(body):
-	# Play the water impact sound
+	# Increase collision count and adjust pitch
+	collision_count += 1
+	var new_pitch = 1.0 + (collision_count * pitch_increment)
+	new_pitch = min(new_pitch, max_pitch_scale)
+	
+	# Play the water impact sound with adjusted pitch
 	if water_impact_sound and water_impact_sound.stream:
+		water_impact_sound.pitch_scale = new_pitch
 		water_impact_sound.play()
 	else:
 		print("Water impact sound not available")
@@ -38,7 +48,7 @@ func _on_body_entered(body):
 	if body.is_in_group("seeds"):
 		body.grow()
 			
-	# Existing logic for seed growth
+	# Existing logic for rock erosion
 	if body.is_in_group("rocks"):
 		body.erode()
 		
