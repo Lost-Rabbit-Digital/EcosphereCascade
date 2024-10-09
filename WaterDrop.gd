@@ -3,7 +3,7 @@ extends RigidBody2D
 var water_impact_sound: AudioStreamPlayer
 var lifetime_timer: Timer
 var collision_count: int = 0
-var max_pitch_scale: float = 2.0  # Maximum pitch scale
+var max_pitch_scale: float = 3.0  # Maximum pitch scale
 var pitch_increment: float = 0.1  # How much to increase pitch per collision
 
 func _ready():

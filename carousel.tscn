@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://pse4ybshqlox"]
+
+[ext_resource type="Script" path="res://carousel.gd" id="1_0ok30"]
+[ext_resource type="PackedScene" uid="uid://dr1jdr7oy00pu" path="res://Rock.tscn" id="1_rx278"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_0ok30")
+
+[node name="StaticBody2D - Rock" parent="." instance=ExtResource("1_rx278")]
+position = Vector2(-182, -1)
+
+[node name="StaticBody2D - Rock2" parent="." instance=ExtResource("1_rx278")]
+position = Vector2(121, -111)
+
+[node name="StaticBody2D - Rock3" parent="." instance=ExtResource("1_rx278")]
+position = Vector2(122, 117)
+
+[node name="StaticBody2D - Rock4" parent="." instance=ExtResource("1_rx278")]
+position = Vector2(-138, 112)
+
+[node name="StaticBody2D - Rock5" parent="." instance=ExtResource("1_rx278")]
+position = Vector2(-139, -128)
+
+[node name="StaticBody2D - Rock6" parent="." instance=ExtResource("1_rx278")]
+position = Vector2(-2, -159)
+
+[node name="StaticBody2D - Rock7" parent="." instance=ExtResource("1_rx278")]
+position = Vector2(-2, 158)
+
+[node name="StaticBody2D - Rock8" parent="." instance=ExtResource("1_rx278")]
+position = Vector2(180, -3)

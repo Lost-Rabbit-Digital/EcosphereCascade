@@ -9,6 +9,7 @@ var combo_sound: AudioStreamPlayer2D
 var crossbow: Sprite2D
 var trajectory_line: Line2D
 var water_drop_scene = preload("res://WaterDrop.tscn")
+var carousel = preload("res://carousel.tscn").instantiate()
 
 var total_seed_pegs = seed_pegs.size()
 var background_sprite = Sprite2D.new()
@@ -51,7 +52,9 @@ func _ready():
 	shoot_cooldown.timeout.connect(reset_shoot_cooldown)
 	shoot_cooldown.one_shot = true
 	add_child(shoot_cooldown)
-	
+	add_child(carousel)
+	carousel.position.x = 300
+	carousel.position.y = 600
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 
 func setup_background_layer():
@@ -281,6 +284,8 @@ func _process(delta):
 	# Rotate vertical rocks
 	for rock in vertical_rocks:
 		rock.rotation += delta * randf_range(0, 0.5)  # Adjust rotation speed as needed
+		
+	# Rotate carousels
 	
 	# Combo timer logic
 	if combo_count > 0:
@@ -406,12 +411,17 @@ func game_loss():
 	loss_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	loss_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	add_child(loss_label)
+	loss_label.position.x = 100
+	loss_label.position.y = 100
 	
 	var restart_button = Button.new()
 	restart_button.text = "Restart"
 	restart_button.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	restart_button.pressed.connect(restart_game)
 	add_child(restart_button)
+	
+	restart_button.position.x = 100
+	restart_button.position.y = 200
 
 func restart_game():
 	get_tree().reload_current_scene()

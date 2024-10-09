@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://thdba3u26np"]
+[gd_scene load_steps=7 format=3 uid="uid://thdba3u26np"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_4ybhf"]
 [ext_resource type="Texture2D" uid="uid://yo6sv7xxq0us" path="res://textures/mushroom_forest_oil.png" id="2_wh4ql"]
 [ext_resource type="AudioStream" uid="uid://phe7kt0ilp4l" path="res://audio/fantasy_background_music.wav" id="3_lxbdk"]
+[ext_resource type="PackedScene" uid="uid://dw337ypakswmd" path="res://tree_right.tscn" id="4_5d8fb"]
+[ext_resource type="PackedScene" uid="uid://d2nc5oswi55ch" path="res://tree_left.tscn" id="5_0usqu"]
+[ext_resource type="PackedScene" uid="uid://pse4ybshqlox" path="res://carousel.tscn" id="6_myrd5"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_4ybhf")
@@ -16,8 +19,13 @@ texture = ExtResource("2_wh4ql")
 stream = ExtResource("3_lxbdk")
 autoplay = true
 
-[node name="StaticBody2D (Wall)" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" parent="." instance=ExtResource("4_5d8fb")]
+position = Vector2(1894, 538)
+scale = Vector2(1.09, 1.09)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D (Wall)"]
+[node name="StaticBody2D2" parent="." instance=ExtResource("5_0usqu")]
+position = Vector2(28, 530)
+scale = Vector2(1.12, 1.12)
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D (Wall)"]
+[node name="Carousel" parent="." instance=ExtResource("6_myrd5")]
+position = Vector2(926, 583)
