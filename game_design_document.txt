@@ -1,74 +1,206 @@
-# Ecosphere Cascade: Minimal Steam Release Requirements
+# Ecosphere Cascade: $3 Steam Release Game Design Document
+
+## Executive Summary
+Ecosphere Cascade is a casual physics-based puzzle game inspired by Peggle, with an environmental restoration theme. Players shoot water drops from a crossbow to hit seed pegs, growing trees and transforming a polluted landscape into a thriving ecosystem. This document outlines the minimal viable product (MVP) for a $3 Steam release.
 
 ## Genre
-Casual Puzzle Game with Ecology Theme
+Casual Physics Puzzle / Peggle-like with Environmental Theme
 
-## Core Gameplay
-- Water drop shooting mechanics
-- Seed pegs that grow into trees when hit
-- Obstacles (rocks and 1-2 additional types)
-- 20 levels for initial release
+## Target Audience
+- Casual gamers looking for relaxing, satisfying gameplay
+- Puzzle game enthusiasts
+- Players interested in environmental themes
+- Ages 10+
+- Price-conscious Steam users seeking quality indie games under $5
 
-## Essential Features
+## Core Gameplay Loop
+1. Aim crossbow at seed pegs using trajectory prediction line
+2. Shoot water drop (limited to 10 shots per level)
+3. Water drop bounces off obstacles (rocks, rotating rocks, curved blocks)
+4. Hit seed pegs to grow trees and score points
+5. Chain hits for combo multipliers
+6. Clear all seed pegs to win, or run out of shots to lose
+7. Watch environment transform from polluted to natural as trees grow
 
-1. Main Menu
-   - Play, Instructions, Settings, Quit options
-   - Simple navigation between scenes
+## Essential Features for $3 Release
 
-2. Instructions
-   - Brief explanation of gameplay mechanics and controls
-   - Accessible from main menu and during gameplay
+### 1. Core Mechanics (ALREADY IMPLEMENTED)
+- ✓ Crossbow aiming with trajectory prediction
+- ✓ Physics-based water drop shooting
+- ✓ Seed pegs that grow into trees when hit
+- ✓ Static rock obstacles
+- ✓ Rotating vertical rock obstacles
+- ✓ 30-degree curved blocks for satisfying bounces
+- ✓ Combo system (3-second window for chaining)
+- ✓ Shot limit system (10 shots per level)
 
-3. Settings
-   - Sound effects and music toggles
-   - Volume controls
+### 2. Level Content (PRIORITY)
+- **12 levels** (reduced from 20 for faster development)
+  - Tutorial level (1-2)
+  - Easy levels (3-5)
+  - Medium levels (6-9)
+  - Hard levels (10-12)
+- Progressive difficulty through:
+  - More obstacles
+  - Tighter peg placement
+  - Fewer clear shots
+  - More rotating obstacles
 
-4. Difficulty Levels
-   - Easy, Medium, Hard
-   - Adjusts number of obstacles, seed pegs, and water drop speed
+### 3. UI/UX System (PARTIALLY IMPLEMENTED)
+- ✓ Main Menu with Play, How to Play, Settings, Quit
+- ✓ Settings Menu with audio controls
+- ✓ In-game UI (score, combo, shots remaining)
+- ✓ Game Over/Loss screen
+- ✓ How to Play screen
+- **NEEDS IMPLEMENTATION:**
+  - Level selection screen
+  - Pause menu (ESC key)
+  - Level complete screen with statistics
+  - Visual improvements to existing screens
 
-5. Scoring System
-   - Points for each grown tree
-   - Display current score on screen
-   - Basic high score tracking
+### 4. Scoring & Progression (PARTIALLY IMPLEMENTED)
+- ✓ Base scoring system
+- ✓ Combo multiplier
+- **NEEDS IMPLEMENTATION:**
+  - Persistent high scores per level (save to user:// directory)
+  - 3-star rating system per level based on score thresholds
+  - Level unlock progression (beat level to unlock next)
+  - Total score tracking across all levels
 
-6. Game Over Screen
-   - Final score display
-   - Restart and Main Menu options
+### 5. Visual Feedback & Polish (PARTIALLY IMPLEMENTED)
+- ✓ Background transformation (polluted → natural)
+- ✓ Trajectory prediction line
+- **NEEDS IMPLEMENTATION:**
+  - Hit effects on pegs (glow, particles)
+  - Score popups when hitting pegs
+  - Tree growth animation
+  - Satisfying visual feedback for combos (screen shake, particles)
+  - Level complete celebration (fireworks/particles)
+  - Floating score accumulation at end of shot
 
-7. Sound and Visual Effects
-   - Basic sound effects for key actions (water drops, seed growth, tree appearance)
-   - Simple animations for water drops, seed growth, trees
+### 6. Audio (PARTIALLY IMPLEMENTED)
+- ✓ Background music (looping)
+- ✓ Win sound
+- ✓ Combo sounds with pitch scaling
+- **NEEDS IMPLEMENTATION:**
+  - Sound effect for shooting water drop
+  - Impact sounds for hitting pegs/obstacles
+  - Tree growth sound
+  - UI button hover/click sounds
+  - Level complete jingle
 
-8. Pause Menu
-   - Resume, Restart, Main Menu options
+### 7. Special Features (OPTIONAL - NICE TO HAVE)
+- **Bucket System** (from playtesting feedback)
+  - Bottom of screen has buckets that award bonus points
+  - Center bucket most valuable (100k), outer buckets less (10k, 50k)
+  - Visual feedback when ball lands in bucket
+- **Free Ball Mechanics**
+  - 50% chance for free shot on total miss
+  - Free shot awarded for 25,000+ point single shot
+  - Visual indicator when free ball is awarded
+- **Longshot Bonus**
+  - Bonus points for shots covering >70% of screen width
 
-9. Power-ups (2-3 types)
-   - e.g., "Sunlight Boost" (faster growth), "Rainwater Splash" (clear obstacles)
-
-10. Special Seed Pegs (1-2 types)
-	- e.g., "Golden Seed" (bonus points), "Seed Bomb" (grows adjacent seeds)
-
-11. Environmental Themes
-	- 2-3 distinct visual themes (e.g., Forest, Desert, Wetland)
-	- Themed obstacles and backgrounds
-
-12. Basic Achievements
-	- 5-7 simple achievements (e.g., grow first tree, clear all levels, reach score milestone)
+## Deferred Features (Not for $3 Release)
+- Multiple environmental themes (Forest, Desert, Wetland)
+- Power-ups (Sunlight Boost, Rainwater Splash)
+- Special seed pegs (Golden Seed, Seed Bomb)
+- Steam achievements (can be added post-launch)
+- Multiple save slots
+- Difficulty selection
+- Upgrades menu functionality
+- Challenge modes
+- Daily challenges
+- Leaderboards
 
 ## Art Direction
-- Cohesive, casual art style
-- Essential assets: menus, sprites (water drops, seeds, trees, obstacles), backgrounds
-- Steam marketplace page assets (logo, header image, screenshots)
+- **Style:** Simple, cohesive 2D art with hand-drawn aesthetic
+- **Color Palette:**
+  - Polluted: Grays, browns, muted colors
+  - Natural: Vibrant greens, blues, earth tones
+- **Required Assets:**
+  - Current assets are acceptable for $3 release
+  - Minor improvements to UI clarity and consistency
+  - Particle effects for polish (can use Godot's built-in particle system)
 
-## Pricing
-- $4.99 USD
+## Technical Requirements
+- **Engine:** Godot 4.3
+- **Platform:** Windows (primary), Linux (secondary if time permits)
+- **Resolution:** 1920x1080 (windowed and fullscreen support)
+- **Save System:** Local JSON file in user:// directory
+- **Performance:** Maintain 60 FPS on low-end hardware (3+ year old laptops)
 
-## Development Steps
-1. Finalize game design document with detailed feature descriptions
-2. Create asset list for all required art
-3. Hire freelance artist for cohesive art style and Steam assets
-4. Develop core gameplay mechanics and level design
-5. Implement UI, sound, and visual effects
-6. Playtest and iterate on level designs and difficulty balance
-7. Prepare Steam store page and plan launch strategy
+## Pricing & Market Positioning
+- **Price:** $2.99 USD
+- **Positioning:** Budget-friendly, polished puzzle game for casual play sessions
+- **Value Proposition:**
+  - 12 handcrafted levels with replay value
+  - Satisfying physics-based gameplay
+  - Relaxing environmental theme
+  - No microtransactions or DLC
+  - 2-4 hours of content for completionists
+
+## Development Priorities (In Order)
+1. **Architecture Refactor** - Separate concerns, create proper systems
+2. **Level System** - Create 12 levels with proper data structure
+3. **Polish Existing Features** - Visual/audio feedback improvements
+4. **UI Improvements** - Level select, pause menu, level complete screen
+5. **Persistence** - Save system for scores and progress
+6. **Steam Integration** - Store page assets, build pipeline
+7. **Playtesting & Balance** - Iterate on difficulty and scoring
+8. **Bug Fixes & Optimization** - Ensure stability and performance
+
+## Success Metrics
+- Positive user reviews (75%+ positive on Steam)
+- Average playtime of 2+ hours
+- Low refund rate (<10%)
+- Community feedback for future updates
+- Recoup development costs within first month
+
+## Post-Launch Plans
+- Monitor reviews and fix critical bugs
+- Consider free content update with 6 additional levels if sales are strong
+- Add Steam achievements if community requests them
+- Build community on Discord/Reddit for feedback
+
+## Development Timeline Estimate
+- Architecture refactor: 1 week
+- Level creation: 2 weeks
+- Visual/audio polish: 1 week
+- UI implementation: 1 week
+- Save system & progression: 3 days
+- Testing & bug fixes: 1 week
+- Steam store setup: 2 days
+**Total: ~6-7 weeks of focused development**
+
+## Competitive Analysis
+**Similar Games on Steam:**
+- Peggle Deluxe ($4.99) - Industry standard
+- Roundguard ($16.99) - More complex, roguelike elements
+- Brick Breaker ($2.99) - Simpler mechanics
+- Tumblestone ($14.99) - Match-3 puzzle hybrid
+
+**Our Advantage at $3:**
+- Unique environmental theme
+- Satisfying physics gameplay proven by Peggle
+- Lower price point than main competitors
+- Simple, accessible mechanics
+- No F2P monetization tricks
+
+## Risk Assessment
+**Technical Risks:**
+- LOW: Using proven Godot 4 engine with existing prototype
+- LOW: Physics already implemented and working
+
+**Market Risks:**
+- MEDIUM: Crowded casual puzzle market on Steam
+- LOW: $3 price point reduces barrier to entry
+- MEDIUM: Need good store page and visibility
+
+**Development Risks:**
+- LOW: Scope is well-defined and achievable
+- MEDIUM: Solo/small team development timeline
+- LOW: Most core features already prototyped
+
+## Conclusion
+Ecosphere Cascade is well-positioned as a $3 Steam release. The core mechanics are already implemented and fun. By focusing on 12 polished levels, proper progression systems, and satisfying feedback, we can deliver a quality experience that justifies the price point while keeping scope manageable. The environmental theme provides a unique angle in the physics puzzle space, and the Peggle-inspired gameplay is proven to be engaging and replayable.
