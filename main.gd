@@ -10,6 +10,7 @@ var crossbow: Sprite2D
 var trajectory_line: Line2D
 var water_drop_scene = preload("res://WaterDrop.tscn")
 var carousel = preload("res://carousel.tscn").instantiate()
+var carousel2 = preload("res://carousel.tscn").instantiate()
 
 var total_seed_pegs = seed_pegs.size()
 var background_sprite = Sprite2D.new()
@@ -53,8 +54,11 @@ func _ready():
 	shoot_cooldown.one_shot = true
 	add_child(shoot_cooldown)
 	add_child(carousel)
-	carousel.position.x = 300
-	carousel.position.y = 600
+	add_child(carousel2)
+	carousel.position.x = 500
+	carousel.position.y = 1100
+	carousel2.position.x = 1500
+	carousel2.position.y = 1100
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 
 func setup_background_layer():
@@ -358,7 +362,7 @@ func update_crossbow_aim():
 func update_trajectory():
 	var start_pos = crossbow.global_position
 	var direction = (get_global_mouse_position() - start_pos).normalized()
-	var speed = 1500  # Adjust this value to change the initial speed of the water drop
+	var speed = 600  # Adjust this value to change the initial speed of the water drop
 	
 	var points = PackedVector2Array()
 	var pos = start_pos
@@ -384,7 +388,7 @@ func shoot_water_drop():
 		var water_drop = water_drop_scene.instantiate()
 		water_drop.position = crossbow.global_position
 		var direction = (get_global_mouse_position() - crossbow.global_position).normalized()
-		water_drop.linear_velocity = direction * 1200  # Match the speed from update_trajectory
+		water_drop.linear_velocity = direction * 600  # Match the speed from update_trajectory
 		add_child(water_drop)
 		can_shoot = false
 		shoot_timer = 0.0  # Reset the timer

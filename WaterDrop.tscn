@@ -12,7 +12,7 @@ radius = 21.0
 
 [node name="RigidBody2D - WaterDrop" type="RigidBody2D"]
 physics_material_override = ExtResource("1_vih3l")
-gravity_scale = 0.9
+gravity_scale = 0.95
 script = ExtResource("2_x0aci")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,0 +1,31 @@
+
+EcoSphere Cascade Playtesting features: 
+longshot combo (if >70% of playable screen width)
+Trapped ball avoidance (if stuck for more than 2 seconds, remove any pegs touching)
+Free ball if score over 25,000 points in one shot
+Only shoot one ball at a time (must wait until last ball has expired/fallen off bottom of screen)
+Add a bucket that gives you back a ball if your ball drops into it
+Add a combo meter that fills up for a persistent combo of x2, x3, x5, x10
+Have a visual display of the remaining water drops on the left side of the screen
+Have a visual display of your character at the top of the screen
+Show your stage and current score in upper left
+Show your overall score in upper right
+Put a menu button in lower left
+Change launcher to display water drop prior to firing as well
+Add up the score for each ball as the ball progresses, only erode once the ball has expired. 
+Add a glow effect around each of the pegs that has been hit to make it brighter until the ball has expired. 
+Make 1/12th curve (30 degree) blocks, similar to Peggle, and use them to create satisfying curves. 
+Play highlighting animation around struck blocks
+Show score on top of each block as it's struck
+Give warnings in center of screen when <4 balls left
+Add up score in center of screen at end of ball lifetime, tween to score in upper left, increment score in upper left by that amount.
+Fireworks and trail once last seed peg struck (trail of flowers and flower-works instead?)
+Transform bottom of screen to buckets with center being most valuable (10k, 50k, 100k in center)
+Shoot flower/bee particles out of the bucket the ball lands in. 
+
+Display a rainbow or other nature element across the screen above the fever score calculation
+Add up last ball score as "Fever score" with the bucket bonus added
+
+Show a level end screen
+
+On a total miss (no pegs struck), 50% chance to get a free ball back
