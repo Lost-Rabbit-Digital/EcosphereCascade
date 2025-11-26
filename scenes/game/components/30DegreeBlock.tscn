@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://domn5hucnp1jc"]
+
+[ext_resource type="Texture2D" uid="uid://b1neld4irrpka" path="res://assets/sprites/30-degree-block.png" id="1_vh1pl"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+scale = Vector2(0.6, 0.6)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-1, 2)
+polygon = PackedVector2Array(8, -47, 1, -41, -5, -36, -10, -32, -16, -28, -24, -24, -31, -21, -39, -19, -47, -18, -32, 45, -7, 37, 12, 28, 30, 17, 42, 6, 51, -6)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 2)
+texture = ExtResource("1_vh1pl")
