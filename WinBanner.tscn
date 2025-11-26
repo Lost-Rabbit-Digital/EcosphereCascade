@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://djjr8sacumkgf"]
-
-[ext_resource type="Texture2D" uid="uid://dfc2jcpp5kkwv" path="res://textures/you_win_screen.jpg" id="1_dx4x5"]
-
-[node name="Node2D" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1.88, 1.88)
-texture = ExtResource("1_dx4x5")
